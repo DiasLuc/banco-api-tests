@@ -3,8 +3,11 @@ const { expect } = require('chai');
 const { getToken } = require('../helpers/authentication.js')
 describe('Transferências', () => {
     describe('POST /transferencias', () => {
+        let token
+        beforeEach(async () => {
+            token = await getToken('julio.lima', '123456')
+        })
         it('Should return success with 201 when transfer value is equal to or greater than R$10.00', async () => {
-            const token = await getToken('julio.lima', '123456')
             const response = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
@@ -21,7 +24,6 @@ describe('Transferências', () => {
 
         })
         it('Should return failure with 422 when transfer value is less than R$10.00', async () => {
-            const token = await getToken('julio.lima', '123456')
             const response = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
