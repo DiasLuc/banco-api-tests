@@ -5,7 +5,7 @@ describe('Transferências', () => {
     describe('POST /transferencias', () => {
         it('Should return success with 201 when transfer value is equal to or greater than R$10.00', async () => {
             // Capture token
-            const loginResponse = await request('http://localhost:3000')
+            const loginResponse = await request(process.env.BASE_URL)
                 .post('/login')
                 .set('Content-Type', 'application/json')
                 .send({
@@ -15,7 +15,7 @@ describe('Transferências', () => {
 
             const token = loginResponse.body.token
 
-            const response = await request('http://localhost:3000')
+            const response = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
@@ -32,7 +32,7 @@ describe('Transferências', () => {
         })
         it('Should return failure with 422 when transfer value is less than R$10.00', async () => {
              // Capture token
-            const loginResponse = await request('http://localhost:3000')
+            const loginResponse = await request(process.env.BASE_URL)
                 .post('/login')
                 .set('Content-Type', 'application/json')
                 .send({
@@ -42,7 +42,7 @@ describe('Transferências', () => {
 
             const token = loginResponse.body.token
 
-            const response = await request('http://localhost:3000')
+            const response = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
